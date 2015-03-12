@@ -16,7 +16,7 @@
 using namespace std;
 
 #define MAX 128
-#define N 1
+#define N 2
 #define M 4
 int index[MAX][MAX];
 int exIndex[MAX][MAX];

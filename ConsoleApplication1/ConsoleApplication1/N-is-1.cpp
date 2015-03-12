@@ -13,7 +13,16 @@
 #include <math.h>
 #include <fstream>
 
+#using <System.dll>
+#using <System.Drawing.dll>
+#using <System.Windows.Forms.dll>
+#include "DotSPeg.h"
+
+using namespace ConsoleApplication1;
+using namespace System::Windows::Forms;
 using namespace std;
+
+
 
 #define MAX 128
 #define N 1
@@ -33,9 +42,14 @@ void printStats(int sIndex, int bitcount, int c1, int c2, int c3, int c4);
 void checkSecret();
 void checkIndex();
 
-
-int _tmain(int argc, _TCHAR* argv[])
+[System::STAThread]
+int main(array<System::String^>^args)
 {
+
+	Application::EnableVisualStyles();
+	Application::SetCompatibleTextRenderingDefault(false);
+
+	Application::Run(gcnew DotSPeg());
 
 	FILE *vqindex, *sFile;
 	fopen_s(&sFile, "S5.txt", "r");
