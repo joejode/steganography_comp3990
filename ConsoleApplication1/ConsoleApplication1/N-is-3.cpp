@@ -140,9 +140,7 @@ void encodeMessage(int vqVals[MAX][MAX])
 	{
 		for (int j = 1; j < MAX; j++)
 		{
-			b1 = s[secretInx++];
-			b2 = s[secretInx++];
-			b3 = s[secretInx++];
+			
 
 			x = index[i][j];
 			u = index[i - 1][j];
@@ -154,50 +152,6 @@ void encodeMessage(int vqVals[MAX][MAX])
 			g4 = (u + l) / 2;
 			g5 = (g2 + g3 + g4) / 3;
 
-			if (b1 == '0' && b2 == '0' && b3 =='0')
-			{
-				d = u - x;
-			}
-			else if (b1 == '0' && b2 == '0' && b3 == '1')
-			{
-				d = l - x;
-
-			}
-			else if (b1 == '0' && b2 == '1' && b3 == '0')
-			{
-				d = t - x;
-
-			}
-			else if (b1 == '0' && b2 == '1' && b3 == '1')
-			{
-
-				d = g1 - x;
-
-			}
-			else if (b1 == '1' && b2 == '0' && b3 == '0')
-			{
-
-				d = g2 - x;
-
-			}
-			else if (b1 == '1' && b2 == '0' && b3 == '1')
-			{
-
-				d = g3 - x;
-
-			}
-			else if (b1 == '1' && b2 == '1' && b3 == '0')
-			{
-
-				d = g4 - x;
-
-			}
-			else if (b1 == '1' && b2 == '1' && b3 == '1')
-			{
-
-				d = g5 - x;
-
-			}
 
 			int m = M;
 			if (d == 0)

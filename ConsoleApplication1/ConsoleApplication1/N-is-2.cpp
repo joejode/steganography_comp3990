@@ -140,13 +140,15 @@ void encodeMessage(int vqVals[MAX][MAX])
 	{
 		for (int j = 1; j < MAX; j++)
 		{
-			b1 = s[secretInx++];
-			b2 = s[secretInx++];
+			
 
 			x = index[i][j];
 			u = index[i - 1][j];
 			l = index[i][j - 1];
 			t = index[i - 1][j - 1];
+
+			b1 = s[secretInx++];
+			b2 = s[secretInx++];
 
 			if (b1 == '0' && b2 == '0')
 			{

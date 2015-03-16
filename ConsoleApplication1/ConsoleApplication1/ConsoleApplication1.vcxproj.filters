@@ -27,16 +27,21 @@
     <ClInclude Include="DotSPeg.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="N-is-1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DotSPeg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DotSPeg.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

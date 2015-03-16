@@ -13,14 +13,7 @@
 #include <math.h>
 #include <fstream>
 
-#using <System.dll>
-#using <System.Drawing.dll>
-#using <System.Windows.Forms.dll>
-#include "DotSPeg.h"
 
-using namespace ConsoleApplication1;
-using namespace System::Windows::Forms;
-using namespace std;
 
 
 
@@ -37,81 +30,76 @@ int sIndex = 0;
 void encodeMessage(int vqVals[MAX][MAX]);
 void decodeMessage();
 void getBin(int num, int bits, char *binVal);
-int getDec(int *, int);
+/*int getDec(int *, int);*/
 void printStats(int sIndex, int bitcount, int c1, int c2, int c3, int c4);
 void checkSecret();
 void checkIndex();
 
-[System::STAThread]
-int main(array<System::String^>^args)
+int main()
 {
 
-	Application::EnableVisualStyles();
-	Application::SetCompatibleTextRenderingDefault(false);
 
-	Application::Run(gcnew DotSPeg());
+	//FILE *vqindex, *sFile;
+	//fopen_s(&sFile, "S5.txt", "r");
 
-	FILE *vqindex, *sFile;
-	fopen_s(&sFile, "S5.txt", "r");
+	//int c, I, i, j;
+	//std::string vqs[] = {
+	//	"256\\ITtxt\\LenaIT.txt",
+	//	"256\\ITtxt\\PeppersIT.txt",
+	//	"256\\ITtxt\\BaboonIT.txt",
+	//	"256\\ITtxt\\BoatsIT.txt",
+	//	"256\\ITtxt\\JetF16IT.txt",
+	//	"256\\ITtxt\\TiffanyIT.txt",
+	//	"256\\ITtxt\\GoldHillIT.txt"
+	//};
 
-	int c, I, i, j;
-	std::string vqs[] = {
-		"256\\ITtxt\\LenaIT.txt",
-		"256\\ITtxt\\PeppersIT.txt",
-		"256\\ITtxt\\BaboonIT.txt",
-		"256\\ITtxt\\BoatsIT.txt",
-		"256\\ITtxt\\JetF16IT.txt",
-		"256\\ITtxt\\TiffanyIT.txt",
-		"256\\ITtxt\\GoldHillIT.txt"
-	};
+	//const char *vq;
+	//// do for each vqindex file stored in array
+	//for (int k = 0; k < 7; k++)
+	//{
+	//	vq = vqs[k].c_str();
+	//	fopen_s(&vqindex, vq, "r");
+	//	printf("\n%s\n", vq);
 
-	const char *vq;
-	// do for each vqindex file stored in array
-	for (int k = 0; k < 7; k++)
-	{
-		vq = vqs[k].c_str();
-		fopen_s(&vqindex, vq, "r");
-		printf("\n%s\n", vq);
+	//	//read vqindex into an array
+	//	for (i = 0; i < MAX; i++)
+	//	{
+	//		for (j = 0; j < MAX; j++)
+	//		{
+	//			c = fscanf_s(vqindex, "%d", &I);
+	//			if (c != EOF)
+	//			{
+	//				index[i][j] = I;
+	//			}
+	//		}
+	//	}
 
-		//read vqindex into an array
-		for (i = 0; i < MAX; i++)
-		{
-			for (j = 0; j < MAX; j++)
-			{
-				c = fscanf_s(vqindex, "%d", &I);
-				if (c != EOF)
-				{
-					index[i][j] = I;
-				}
-			}
-		}
+	//	//read secret message into an array
+	//	int size = MAX *MAX *N;
+	//	//char sval = ' ';
 
-		//read secret message into an array
-		int size = MAX *MAX *N;
-		//char sval = ' ';
+	//	char ch;
 
-		char ch;
+	//	for (i = 0; i < size; i++)
+	//	{
+	//		c = fscanf_s(sFile, "%c ", &ch, 1);
+	//		if (c != EOF)
+	//		{
+	//			s[i] = ch;
+	//		}
 
-		for (i = 0; i < size; i++)
-		{
-			c = fscanf_s(sFile, "%c ", &ch, 1);
-			if (c != EOF)
-			{
-				s[i] = ch;
-			}
+	//	}
+	//	encodeMessage(index);
+	//	fclose(vqindex);
+	//	decodeMessage();
+	//	checkSecret();
+	//	checkIndex();
 
-		}
-		encodeMessage(index);
-		fclose(vqindex);
-		decodeMessage();
-		checkSecret();
-		checkIndex();
-
-		memset(index, 0, MAX*MAX);
-	}
+	//	memset(index, 0, MAX*MAX);
+	//}
 
 
-	fclose(sFile);
+	//fclose(sFile);
 	return 0;
 }
 
@@ -119,10 +107,10 @@ int main(array<System::String^>^args)
 void encodeMessage(int vqVals[MAX][MAX])
 {
 	char bVal[10];
-	int  x, d, u, l, t, g, len = 0, seedCnt = 0, secretInx = 0,bitcount=0;
+	int  x, d, u, l, t, len = 0, seedCnt = 0, secretInx = 0, bitcount = 0;
 	double scount = 0.0;
-	char b1, b2;
-	int c1 = 0, c2 = 0, c3 = 0, c4 = 0;
+	char b1, b2, b3, b4;
+	int c1 = 0, c2 = 0, c3 = 0, c4 = 0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13;
 
 	memset(codeStream, '\0', MAX*MAX*N * 12);
 	for (int i = 0; i < MAX; i++)
@@ -150,25 +138,221 @@ void encodeMessage(int vqVals[MAX][MAX])
 		}
 	}
 
+	
 	for (int i = 1; i < MAX; i++)
 	{
 		for (int j = 1; j < MAX; j++)
 		{
-			b1 = s[secretInx++];
-
 			x = index[i][j];
 			u = index[i - 1][j];
 			l = index[i][j - 1];
 			t = index[i - 1][j - 1];
+			g2 = (u + t) / 2;
+			g3 = (l + t) / 2;
+			g4 = (u + l) / 2;
+			g5 = (g2 + g3 + g4) / 3;
+			g6 = (u + g2) / 2;
+			g7 = (g2 + g4) / 2;
+			g8 = (u + g4) / 2;
+			g9 = (g6 + g7 + g8) / 3;
+			g10 = (l + g3) / 2;
+			g11 = (g3 + g4) / 2;
+			g12 = (l + g4) / 2;
+			g13 = (g10 + g11 + g12) / 3;
 
-			if (b1 == '0')
+			if (N == 1)
 			{
-				d = u - x;
+				b1 = s[secretInx++];
+
+				if (b1 == '0')
+				{
+					d = u - x;
+				}
+				else if (b1 == '1')
+				{
+					d = l - x;
+
+				}
 			}
-			else if (b1 == '1')
-			{
-				d = l - x;
 
+			if (N == 2)
+			{
+				b1 = s[secretInx++];
+				b2 = s[secretInx++];
+
+				if (b1 == '0' && b2 == '0')
+				{
+					d = u - x;
+				}
+				else if (b1 == '0' && b2 == '1')
+				{
+					d = l - x;
+
+				}
+				else if (b1 == '1' && b2 == '0')
+				{
+					d = t - x;
+
+				}
+				else if (b1 == '1' && b2 == '1')
+				{
+					g1 = (u + l + t) / 3;
+					d = g1 - x;
+
+				}
+			}
+
+			if (N == 3)
+			{
+				b1 = s[secretInx++];
+				b2 = s[secretInx++];
+				b3 = s[secretInx++];
+
+				if (b1 == '0' && b2 == '0' && b3 == '0')
+				{
+					d = u - x;
+				}
+				else if (b1 == '0' && b2 == '0' && b3 == '1')
+				{
+					d = l - x;
+
+				}
+				else if (b1 == '0' && b2 == '1' && b3 == '0')
+				{
+					d = t - x;
+
+				}
+				else if (b1 == '0' && b2 == '1' && b3 == '1')
+				{
+
+					d = g1 - x;
+
+				}
+				else if (b1 == '1' && b2 == '0' && b3 == '0')
+				{
+
+					d = g2 - x;
+
+				}
+				else if (b1 == '1' && b2 == '0' && b3 == '1')
+				{
+
+					d = g3 - x;
+
+				}
+				else if (b1 == '1' && b2 == '1' && b3 == '0')
+				{
+
+					d = g4 - x;
+
+				}
+				else if (b1 == '1' && b2 == '1' && b3 == '1')
+				{
+
+					d = g5 - x;
+
+				}
+			}
+
+			if (N ==4)
+			{
+				b1 = s[secretInx++];
+				b2 = s[secretInx++];
+				b3 = s[secretInx++];
+				b4 = s[secretInx++];
+
+				if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '0')
+				{
+					d = u - x;
+				}
+				else if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '1')
+				{
+					d = l - x;
+
+				}
+				else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '0')
+				{
+					d = t - x;
+
+				}
+				else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '1')
+				{
+
+					d = g1 - x;
+
+				}
+				else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '0')
+				{
+
+					d = g2 - x;
+
+				}
+				else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '1')
+				{
+
+					d = g3 - x;
+
+				}
+				else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '0')
+				{
+
+					d = g4 - x;
+
+				}
+				else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '1')
+				{
+
+					d = g5 - x;
+
+				}
+				else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '0')
+				{
+
+					d = g6 - x;
+
+				}
+				else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '1')
+				{
+
+					d = g7 - x;
+
+				}
+				else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '0')
+				{
+
+					d = g8 - x;
+
+				}
+				else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '1')
+				{
+
+					d = g9 - x;
+
+				}
+				else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '0')
+				{
+
+					d = g10 - x;
+
+				}
+				else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '1')
+				{
+
+					d = g11 - x;
+
+				}
+				else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '0')
+				{
+
+					d = g12 - x;
+
+				}
+				else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '1')
+				{
+
+					d = g13 - x;
+
+				}
 			}
 			
 
@@ -442,19 +626,20 @@ void getBin(int num, int bits, char * bVal)
 	strcpy_s(bVal, 10, pad);
 }
 
-int getDec(int *binVal, int binSz)
-{
-	double decVal = 0;
-	for (int i = 0; i < binSz; i++)
-	{
-		if (binVal[i] == 1)
-		{
-			decVal += pow(2, i);
-		}
-	}
-	return decVal;
-}
-
+/*
+//int getDec(int *binVal, int binSz)
+//{
+//	double decVal = 0;
+//	for (int i = 0; i < binSz; i++)
+//	{
+//		if (binVal[i] == 1)
+//		{
+//			decVal += pow(2, i);
+//		}
+//	}
+//	return decVal;
+//}
+*/
 void checkSecret()
 {
 	int sizeInit = strlen(s);
