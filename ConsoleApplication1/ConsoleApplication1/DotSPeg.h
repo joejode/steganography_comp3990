@@ -124,11 +124,13 @@ namespace ConsoleApplication1 {
 			this->encodeMsg = (gcnew System::Windows::Forms::Button());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->encodingSuccess = (gcnew System::Windows::Forms::TextBox());
 			this->couple = (gcnew System::Windows::Forms::PictureBox());
 			this->boats = (gcnew System::Windows::Forms::PictureBox());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->nVal = (gcnew System::Windows::Forms::NumericUpDown());
+			this->encodedNS = (gcnew System::Windows::Forms::TextBox());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->exMsgLbl = (gcnew System::Windows::Forms::Label());
 			this->convExMsg2Str = (gcnew System::Windows::Forms::Button());
@@ -141,8 +143,6 @@ namespace ConsoleApplication1 {
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
-			this->encodingSuccess = (gcnew System::Windows::Forms::TextBox());
-			this->encodedNS = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->lena))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
@@ -182,6 +182,7 @@ namespace ConsoleApplication1 {
 			this->inputSecretMsg->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->inputSecretMsg->Size = System::Drawing::Size(205, 55);
 			this->inputSecretMsg->TabIndex = 2;
+			this->inputSecretMsg->TextChanged += gcnew System::EventHandler(this, &DotSPeg::inputSecretMsg_TextChanged);
 			// 
 			// origImgLbl
 			// 
@@ -265,6 +266,20 @@ namespace ConsoleApplication1 {
 			this->tabPage1->Text = L"Encode Message";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
+			// encodingSuccess
+			// 
+			this->encodingSuccess->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->encodingSuccess->Location = System::Drawing::Point(343, 18);
+			this->encodingSuccess->Multiline = true;
+			this->encodingSuccess->Name = L"encodingSuccess";
+			this->encodingSuccess->ReadOnly = true;
+			this->encodingSuccess->Size = System::Drawing::Size(294, 32);
+			this->encodingSuccess->TabIndex = 13;
+			this->encodingSuccess->Text = L"Encoding Successful!";
+			this->encodingSuccess->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->encodingSuccess->Visible = false;
+			// 
 			// couple
 			// 
 			this->couple->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"couple.Image")));
@@ -315,6 +330,21 @@ namespace ConsoleApplication1 {
 			this->nVal->Size = System::Drawing::Size(120, 20);
 			this->nVal->TabIndex = 8;
 			this->nVal->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->nVal->ValueChanged += gcnew System::EventHandler(this, &DotSPeg::nVal_ValueChanged);
+			// 
+			// encodedNS
+			// 
+			this->encodedNS->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->encodedNS->Location = System::Drawing::Point(343, 18);
+			this->encodedNS->Multiline = true;
+			this->encodedNS->Name = L"encodedNS";
+			this->encodedNS->ReadOnly = true;
+			this->encodedNS->Size = System::Drawing::Size(294, 32);
+			this->encodedNS->TabIndex = 14;
+			this->encodedNS->Text = L"Encoding Not Successful.";
+			this->encodedNS->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->encodedNS->Visible = false;
 			// 
 			// tabPage2
 			// 
@@ -384,6 +414,7 @@ namespace ConsoleApplication1 {
 			// exBinMsg
 			// 
 			this->exBinMsg->Location = System::Drawing::Point(400, 143);
+			this->exBinMsg->MaxLength = 33767;
 			this->exBinMsg->Multiline = true;
 			this->exBinMsg->Name = L"exBinMsg";
 			this->exBinMsg->ReadOnly = true;
@@ -430,34 +461,6 @@ namespace ConsoleApplication1 {
 			// 
 			this->saveFileDialog1->Filter = L"(*.bmp;*.gif;*.jpg;*.tif;*.png|*.bmp;*.gif;*.jpg;*.tif;*.png)";
 			// 
-			// encodingSuccess
-			// 
-			this->encodingSuccess->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->encodingSuccess->Location = System::Drawing::Point(343, 18);
-			this->encodingSuccess->Multiline = true;
-			this->encodingSuccess->Name = L"encodingSuccess";
-			this->encodingSuccess->ReadOnly = true;
-			this->encodingSuccess->Size = System::Drawing::Size(294, 32);
-			this->encodingSuccess->TabIndex = 13;
-			this->encodingSuccess->Text = L"Encoding Successful!";
-			this->encodingSuccess->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->encodingSuccess->Visible = false;
-			// 
-			// encodedNS
-			// 
-			this->encodedNS->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->encodedNS->Location = System::Drawing::Point(343, 18);
-			this->encodedNS->Multiline = true;
-			this->encodedNS->Name = L"encodedNS";
-			this->encodedNS->ReadOnly = true;
-			this->encodedNS->Size = System::Drawing::Size(294, 32);
-			this->encodedNS->TabIndex = 14;
-			this->encodedNS->Text = L"Encoding Not Successful.";
-			this->encodedNS->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->encodedNS->Visible = false;
-			// 
 			// DotSPeg
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -497,7 +500,8 @@ namespace ConsoleApplication1 {
 			double scount = 0.0;
 			char b1, b2;
 			int c1 = 0, c2 = 0, c3 = 0, c4 = 0;
-			std::string outStream;
+			//std::string outStream;
+			String^ outStream;
 			String^ secretMsgStream = secretstream;
 			std::string secretMsg = msclr::interop::marshal_as<std::string>(secretMsgStream);
 
@@ -506,13 +510,13 @@ namespace ConsoleApplication1 {
 			{
 				getBin(vqVals[0][i], 8, bVal);
 				seedCnt++;
-				len = outStream.length();
-				for (int j = 0; j < 8; j++)
-				{
-					outStream+= bVal[j];
-					len++;
-					bitcount++;
-				}
+				//len = outStream->Length;
+				//for (int j = 0; j < 8; j++)
+				//{
+					outStream += gcnew String(bVal);
+					len+=8;
+					bitcount+=8;
+				//}
 			}
 
 			for (int j = 1; j < MAX; j++)
@@ -520,12 +524,13 @@ namespace ConsoleApplication1 {
 
 				getBin(vqVals[j][0], 8, bVal);
 				seedCnt++;
-				len = outStream.length();
-				for (int i = 0; i < 8; i++)
-				{
-					outStream+= bVal[i];
-					bitcount++;
-				}
+				//len = outStream->Length;
+				//for (int j = 0; j < 8; j++)
+				//{
+					outStream += gcnew String(bVal);
+					len += 8;
+					bitcount += 8;
+				//}
 			}
 
 			for (int i = 1; i < MAX; i++)
@@ -567,13 +572,18 @@ namespace ConsoleApplication1 {
 					int m = 4;
 					if (d == 0)
 					{
-						len = outStream.length();
+						len = outStream->Length;
 
-						outStream += b1;
-						outStream += b2;
-						outStream += '0';
-						outStream += '0';
-						outStream += '\0';
+						std::string caseBits;
+						caseBits += b1;
+						caseBits += b2;
+						caseBits += '0';
+						caseBits += '0';
+						outStream += gcnew String(caseBits.c_str());
+						//outStream += gcnew String(b1);
+						//outStream += gcnew String(b2);
+						//outStream += '0';
+						//outStream += '0';
 
 						bitcount += 4.0;
 						c1 += 1;
@@ -581,47 +591,50 @@ namespace ConsoleApplication1 {
 					else if (abs(d) > pow(2, m) - 1)
 					{
 
-						len = outStream.length();
+						len = outStream->Length;
 
-						outStream += b1;
-						outStream += b2;
-						outStream += '0';
-						outStream += '1';
-						outStream += '\0';
+						std::string caseBits;
+						caseBits += b1;
+						caseBits += b2;
+						caseBits += '0';
+						caseBits += '1';
+						outStream += gcnew String(caseBits.c_str());
 
 						getBin(x, 8, bVal);
-						outStream.append(bVal);
+						outStream += gcnew String(bVal);
 						bitcount += 12.0;
 						c2 += 1;
 
 					}
 					else if (-(pow(2, m) - 1) <= d && d < 0)
 					{
-						len = outStream.length();
+						len = outStream->Length;
 
-						outStream += b1;
-						outStream += b2;
-						outStream += '1';
-						outStream += '0';
-						outStream += '\0';
+						std::string caseBits;
+						caseBits += b1;
+						caseBits += b2;
+						caseBits += '1';
+						caseBits += '0';
+						outStream += gcnew String(caseBits.c_str());
 
 						getBin(abs(d), m, bVal);
-						outStream.append(bVal);
+						outStream += gcnew String(bVal);
 						bitcount = bitcount + m + 4;
 						c3 += 1;
 					}
 					else if (0 < d && d <= (pow(2, m) - 1))
 					{
-						len = outStream.length();
+						len = outStream->Length;
 
-						outStream += b1;
-						outStream += b2;
-						outStream += '1';
-						outStream += '1';
-						outStream += '\0';
+						std::string caseBits;
+						caseBits += b1;
+						caseBits += b2;
+						caseBits += '1';
+						caseBits += '1';
+						outStream += gcnew String(caseBits.c_str());
 
 						getBin(d, m, bVal);
-						outStream.append(bVal);
+						outStream += gcnew String(bVal);
 						bitcount = bitcount + m + 4;
 						c4 += 1;
 					}
@@ -629,7 +642,8 @@ namespace ConsoleApplication1 {
 				}
 			}
 
-			String^ codeStream = gcnew String(outStream.c_str());
+			//String^ codeStream = gcnew String(outStream.c_str());
+			String^ codeStream = outStream;
 			encodedStream = codeStream;
 			int r = secretMsgStream->Length;
 			int p = codeStream->Length;
@@ -825,6 +839,8 @@ namespace ConsoleApplication1 {
 
 			String^ exSecretMsgOut = gcnew String(exSecretMsg.c_str());
 			exSecretStream = exSecretMsgOut;
+			int r = exSecretStream->Length;
+			int o = exSecretMsg.size();
 		}
 
 		String ^ redFromFile()
@@ -920,6 +936,10 @@ private: System::Void convExMsg2Str_Click(System::Object^  sender, System::Event
 
 		decVal = getDec(binVal,7);
 		char letter = decVal;
+		if (letter == '|')
+		{
+			break;
+		}
 		msg += letter;
 	}
 
@@ -928,10 +948,14 @@ private: System::Void convExMsg2Str_Click(System::Object^  sender, System::Event
 }
 
 private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+	encodingSuccess->Visible = false;
+	exBinMsg->Text = " ";
+	exMsg->Text = " ";
+
 	if (comboBox1->SelectedItem == "Boats")
 	{
 		boats->Visible = true;
-		encodedImg = boats;
+		encodedImg->Image = boats->Image;
 		couple->Visible = false;
 		lena->Visible = false;
 		 vq = "256\\ITtxt\\BoatsIT.txt";
@@ -941,15 +965,17 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	{
 		boats->Visible = false;
 		couple->Visible = true;
+		encodedImg->Image = couple->Image;
 		lena->Visible = false;
-		//vq = vqs[1].c_str();
+		vq = "256\\ITtxt\\BoatsIT.txt";
 	}
 	if (comboBox1->SelectedItem == "Lena")
 	{
 		boats->Visible = false;
 		couple->Visible = false;
+		encodedImg->Image = lena->Image;
 		lena->Visible = true;
-		//vq = vqs[0].c_str();
+		vq = "256\\ITtxt\\BoatsIT.txt";
 	}
 
 	encodedImg->Visible = true;
@@ -1000,7 +1026,19 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 	decodeMessage();
 
 	exBinMsg->Text = exSecretStream;
+	int h = exSecretStream->Length;
 }
 
+private: System::Void inputSecretMsg_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	encodingSuccess->Visible = false;
+	exBinMsg->Text = " ";
+	exMsg->Text = " ";
+}
+private: System::Void nVal_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	encodingSuccess->Visible = false;
+	exBinMsg->Text = " ";
+	exMsg->Text = " ";
+}
 };
 }
