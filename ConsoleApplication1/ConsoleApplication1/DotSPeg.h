@@ -84,7 +84,8 @@ namespace ConsoleApplication1 {
 	private: System::Windows::Forms::ImageList^  imageList1;
 	private: System::Windows::Forms::ComboBox^  comboBox1;
 	private: System::Windows::Forms::PictureBox^  boats;
-	private: System::Windows::Forms::PictureBox^  couple;
+	private: System::Windows::Forms::PictureBox^  baboon;
+
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 
 
@@ -125,12 +126,12 @@ namespace ConsoleApplication1 {
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->encodingSuccess = (gcnew System::Windows::Forms::TextBox());
-			this->couple = (gcnew System::Windows::Forms::PictureBox());
-			this->boats = (gcnew System::Windows::Forms::PictureBox());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->nVal = (gcnew System::Windows::Forms::NumericUpDown());
 			this->encodedNS = (gcnew System::Windows::Forms::TextBox());
+			this->baboon = (gcnew System::Windows::Forms::PictureBox());
+			this->boats = (gcnew System::Windows::Forms::PictureBox());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->exMsgLbl = (gcnew System::Windows::Forms::Label());
 			this->convExMsg2Str = (gcnew System::Windows::Forms::Button());
@@ -146,9 +147,9 @@ namespace ConsoleApplication1 {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->lena))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->couple))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boats))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nVal))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->baboon))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boats))->BeginInit();
 			this->tabPage2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->encodedImg))->BeginInit();
 			this->SuspendLayout();
@@ -244,8 +245,6 @@ namespace ConsoleApplication1 {
 			// tabPage1
 			// 
 			this->tabPage1->Controls->Add(this->encodingSuccess);
-			this->tabPage1->Controls->Add(this->couple);
-			this->tabPage1->Controls->Add(this->boats);
 			this->tabPage1->Controls->Add(this->comboBox1);
 			this->tabPage1->Controls->Add(this->label1);
 			this->tabPage1->Controls->Add(this->nVal);
@@ -255,9 +254,11 @@ namespace ConsoleApplication1 {
 			this->tabPage1->Controls->Add(this->label3);
 			this->tabPage1->Controls->Add(this->inputSecretMsg);
 			this->tabPage1->Controls->Add(this->label2);
-			this->tabPage1->Controls->Add(this->lena);
 			this->tabPage1->Controls->Add(this->origImgLbl);
 			this->tabPage1->Controls->Add(this->encodedNS);
+			this->tabPage1->Controls->Add(this->baboon);
+			this->tabPage1->Controls->Add(this->boats);
+			this->tabPage1->Controls->Add(this->lena);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
@@ -280,32 +281,10 @@ namespace ConsoleApplication1 {
 			this->encodingSuccess->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->encodingSuccess->Visible = false;
 			// 
-			// couple
-			// 
-			this->couple->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"couple.Image")));
-			this->couple->Location = System::Drawing::Point(22, 63);
-			this->couple->Name = L"couple";
-			this->couple->Size = System::Drawing::Size(256, 256);
-			this->couple->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->couple->TabIndex = 12;
-			this->couple->TabStop = false;
-			this->couple->Visible = false;
-			// 
-			// boats
-			// 
-			this->boats->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"boats.Image")));
-			this->boats->Location = System::Drawing::Point(22, 63);
-			this->boats->Name = L"boats";
-			this->boats->Size = System::Drawing::Size(256, 256);
-			this->boats->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->boats->TabIndex = 11;
-			this->boats->TabStop = false;
-			this->boats->Visible = false;
-			// 
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Boats", L"Couple", L"Lena" });
+			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Boats", L"Baboon", L"Lena" });
 			this->comboBox1->Location = System::Drawing::Point(22, 39);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(256, 21);
@@ -345,6 +324,28 @@ namespace ConsoleApplication1 {
 			this->encodedNS->Text = L"Encoding Not Successful.";
 			this->encodedNS->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->encodedNS->Visible = false;
+			// 
+			// baboon
+			// 
+			this->baboon->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"baboon.Image")));
+			this->baboon->Location = System::Drawing::Point(22, 63);
+			this->baboon->Name = L"baboon";
+			this->baboon->Size = System::Drawing::Size(256, 256);
+			this->baboon->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->baboon->TabIndex = 12;
+			this->baboon->TabStop = false;
+			this->baboon->Visible = false;
+			// 
+			// boats
+			// 
+			this->boats->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"boats.Image")));
+			this->boats->Location = System::Drawing::Point(22, 63);
+			this->boats->Name = L"boats";
+			this->boats->Size = System::Drawing::Size(256, 256);
+			this->boats->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->boats->TabIndex = 11;
+			this->boats->TabStop = false;
+			this->boats->Visible = false;
 			// 
 			// tabPage2
 			// 
@@ -473,9 +474,9 @@ namespace ConsoleApplication1 {
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			this->tabPage1->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->couple))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boats))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->nVal))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->baboon))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->boats))->EndInit();
 			this->tabPage2->ResumeLayout(false);
 			this->tabPage2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->encodedImg))->EndInit();
@@ -1427,26 +1428,26 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	{
 		boats->Visible = true;
 		encodedImg->Image = boats->Image;
-		couple->Visible = false;
+		baboon->Visible = false;
 		lena->Visible = false;
 		 vq = "256\\ITtxt\\BoatsIT.txt";
 
 	}
-	if (comboBox1->SelectedItem == "Couple")
+	if (comboBox1->SelectedItem == "Baboon")
 	{
 		boats->Visible = false;
-		couple->Visible = true;
-		encodedImg->Image = couple->Image;
+		baboon->Visible = true;
+		encodedImg->Image = baboon->Image;
 		lena->Visible = false;
-		vq = "256\\ITtxt\\BoatsIT.txt";
+		vq = "256\\ITtxt\\BaboonIT.txt";
 	}
 	if (comboBox1->SelectedItem == "Lena")
 	{
 		boats->Visible = false;
-		couple->Visible = false;
+		baboon->Visible = false;
 		encodedImg->Image = lena->Image;
 		lena->Visible = true;
-		vq = "256\\ITtxt\\BoatsIT.txt";
+		vq = "256\\ITtxt\\LenaIT.txt";
 	}
 
 	encodedImg->Visible = true;
