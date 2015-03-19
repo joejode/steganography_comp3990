@@ -487,7 +487,7 @@ namespace ConsoleApplication1 {
 		int fIndex = 0;
 		String^ vq;
 		FILE *vqIndex;
-		int N;
+		int N,M=4;
 		String^ encodedStream;
 		String^ secretstream;
 		String^ exCodeStream;
@@ -496,164 +496,271 @@ namespace ConsoleApplication1 {
 		void encodeMessage(int vqVals[MAX][MAX])
 		{
 			char bVal[10];
-			int  x, d, u, l, t, g, len = 0, seedCnt = 0, secretInx = 0, bitcount = 0;
-			double scount = 0.0;
-			char b1, b2;
-			int c1 = 0, c2 = 0, c3 = 0, c4 = 0;
-			//std::string outStream;
+			int  x, d, u, l, t, secretInx = 0;
+			char b1, b2, b3, b4;
+			int g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13;
 			String^ outStream;
 			String^ secretMsgStream = secretstream;
 			std::string secretMsg = msclr::interop::marshal_as<std::string>(secretMsgStream);
 
-			//memset(codeStream, '\0', MAX*MAX*N * 12);
 			for (int i = 0; i < MAX; i++)
 			{
 				getBin(vqVals[0][i], 8, bVal);
-				seedCnt++;
-				//len = outStream->Length;
-				//for (int j = 0; j < 8; j++)
-				//{
-					outStream += gcnew String(bVal);
-					len+=8;
-					bitcount+=8;
-				//}
+				outStream += gcnew String(bVal);
 			}
 
 			for (int j = 1; j < MAX; j++)
 			{
 
 				getBin(vqVals[j][0], 8, bVal);
-				seedCnt++;
-				//len = outStream->Length;
-				//for (int j = 0; j < 8; j++)
-				//{
-					outStream += gcnew String(bVal);
-					len += 8;
-					bitcount += 8;
-				//}
+				outStream += gcnew String(bVal);
 			}
 
 			for (int i = 1; i < MAX; i++)
 			{
 				for (int j = 1; j < MAX; j++)
 				{
-					//b1 = s[secretInx++];
-					//b2 = s[secretInx++];
-					b1 = secretMsg.at(secretInx++);
-					b2 = secretMsg.at(secretInx++);
-
 					x = vqVals[i][j];
 					u = vqVals[i - 1][j];
 					l = vqVals[i][j - 1];
 					t = vqVals[i - 1][j - 1];
-					
-					if (b1 == '0' && b2 == '0')
+					g1 = (u + l + t) / 3;
+					g2 = (u + t) / 2;
+					g3 = (l + t) / 2;
+					g4 = (u + l) / 2;
+					g5 = (g2 + g3 + g4) / 3;
+					g6 = (u + g2) / 2;
+					g7 = (g2 + g4) / 2;
+					g8 = (u + g4) / 2;
+					g9 = (g6 + g7 + g8) / 3;
+					g10 = (l + g3) / 2;
+					g11 = (g3 + g4) / 2;
+					g12 = (l + g4) / 2;
+					g13 = (g10 + g11 + g12) / 3;
+
+					if (N == 1)
 					{
-						d = u - x;
+						b1 = secretMsg.at(secretInx++);
+
+						if (b1 == '0')
+						{
+							d = u - x;
+						}
+						else if (b1 == '1')
+						{
+							d = l - x;
+						}
+
 					}
-					else if (b1 == '0' && b2 == '1')
-					{
-						d = l - x;
 
+					else if (N == 2)
+					{
+						b1 = secretMsg.at(secretInx++);
+						b2 = secretMsg.at(secretInx++);
+
+						if (b1 == '0' && b2 == '0')
+						{
+							d = u - x;
+						}
+						else if (b1 == '0' && b2 == '1')
+						{
+							d = l - x;
+
+						}
+						else if (b1 == '1' && b2 == '0')
+						{
+							d = t - x;
+
+						}
+						else if (b1 == '1' && b2 == '1')
+						{
+							d = g1 - x;
+
+						}
 					}
-					else if (b1 == '1' && b2 == '0')
+					else if (N == 3)
 					{
-						d = t - x;
+						b1 = secretMsg.at(secretInx++);
+						b2 = secretMsg.at(secretInx++);
+						b3 = secretMsg.at(secretInx++);
 
+						if (b1 == '0' && b2 == '0' && b3 == '0')
+						{
+							d = u - x;
+						}
+						else if (b1 == '0' && b2 == '0' && b3 == '1')
+						{
+							d = l - x;
+						}
+						else if (b1 == '0' && b2 == '1' && b3 == '0')
+						{
+							d = t - x;
+						}
+						else if (b1 == '0' && b2 == '1' && b3 == '1')
+						{
+							d = g1 - x;
+						}
+						else if (b1 == '1' && b2 == '0' && b3 == '0')
+						{
+							d = g2 - x;
+						}
+						else if (b1 == '1' && b2 == '0' && b3 == '1')
+						{
+							d = g3 - x;
+						}
+						else if (b1 == '1' && b2 == '1' && b3 == '0')
+						{
+							d = g4 - x;
+						}
+						else if (b1 == '1' && b2 == '1' && b3 == '1')
+						{
+							d = g5 - x;
+						}
 					}
-					else if (b1 == '1' && b2 == '1')
+					else if (N == 4)
 					{
+						b1 = secretMsg.at(secretInx++);
+						b2 = secretMsg.at(secretInx++);
+						b3 = secretMsg.at(secretInx++);
+						b4 = secretMsg.at(secretInx++);
 
-						g = (u + l + t) / 3;
-						d = g - x;
+						if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '0')
+						{
+							d = u - x;
+						}
+						else if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '1')
+						{
+							d = l - x;
+						}
+						else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '0')
+						{
+							d = t - x;
 
+						}
+						else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '1')
+						{
+							d = g1 - x;
+						}
+						else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '0')
+						{
+							d = g2 - x;
+						}
+						else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '1')
+						{
+							d = g3 - x;
+						}
+						else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '0')
+						{
+							d = g4 - x;
+						}
+						else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '1')
+						{
+							d = g5 - x;
+						}
+						else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '0')
+						{
+							d = g6 - x;
+						}
+						else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '1')
+						{
+							d = g7 - x;
+						}
+						else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '0')
+						{
+							d = g8 - x;
+						}
+						else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '1')
+						{
+							d = g9 - x;
+						}
+						else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '0')
+						{
+							d = g10 - x;
+						}
+						else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '1')
+						{
+							d = g11 - x;
+						}
+						else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '0')
+						{
+							d = g12 - x;
+						}
+						else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '1')
+						{
+							d = g13 - x;
+						}
 					}
 
-					int m = 4;
-					if (d == 0)
-					{
-						len = outStream->Length;
+					int m = M;
+					std::string caseBits;
 
-						std::string caseBits;
+					if (N == 1)
+					{
+						caseBits += b1;
+					}
+					else if (N == 2)
+					{
 						caseBits += b1;
 						caseBits += b2;
+					}
+					else if (N == 3)
+					{
+						caseBits += b1;
+						caseBits += b2;
+						caseBits += b3;
+					}
+					else if (N == 4)
+					{
+						caseBits += b1;
+						caseBits += b2;
+						caseBits += b3;
+						caseBits += b4;
+					}
+
+					if (d == 0)
+					{						
 						caseBits += '0';
 						caseBits += '0';
 						outStream += gcnew String(caseBits.c_str());
-						//outStream += gcnew String(b1);
-						//outStream += gcnew String(b2);
-						//outStream += '0';
-						//outStream += '0';
-
-						bitcount += 4.0;
-						c1 += 1;
 					}
 					else if (abs(d) > pow(2, m) - 1)
 					{
-
-						len = outStream->Length;
-
-						std::string caseBits;
-						caseBits += b1;
-						caseBits += b2;
 						caseBits += '0';
 						caseBits += '1';
 						outStream += gcnew String(caseBits.c_str());
 
 						getBin(x, 8, bVal);
 						outStream += gcnew String(bVal);
-						bitcount += 12.0;
-						c2 += 1;
 
 					}
 					else if (-(pow(2, m) - 1) <= d && d < 0)
 					{
-						len = outStream->Length;
-
-						std::string caseBits;
-						caseBits += b1;
-						caseBits += b2;
 						caseBits += '1';
 						caseBits += '0';
 						outStream += gcnew String(caseBits.c_str());
 
 						getBin(abs(d), m, bVal);
 						outStream += gcnew String(bVal);
-						bitcount = bitcount + m + 4;
-						c3 += 1;
 					}
 					else if (0 < d && d <= (pow(2, m) - 1))
 					{
-						len = outStream->Length;
-
-						std::string caseBits;
-						caseBits += b1;
-						caseBits += b2;
 						caseBits += '1';
 						caseBits += '1';
 						outStream += gcnew String(caseBits.c_str());
 
 						getBin(d, m, bVal);
 						outStream += gcnew String(bVal);
-						bitcount = bitcount + m + 4;
-						c4 += 1;
 					}
-
 				}
 			}
-
-			//String^ codeStream = gcnew String(outStream.c_str());
 			String^ codeStream = outStream;
 			encodedStream = codeStream;
-			int r = secretMsgStream->Length;
-			int p = codeStream->Length;
-			int q= encodedStream->Length;
 		}
 
 		void decodeMessage()
 		{
 			int s = 0, binval[8], decVal = 0;
-			char c1, c2, b1, b2;
+			char c1, c2, b1, b2, b3, b4;
 			String^ codeStream = encodedStream;
 			std::string exSecretMsg;
 			std::string encodedBinStream = msclr::interop::marshal_as<std::string>(codeStream);
@@ -698,7 +805,7 @@ namespace ConsoleApplication1 {
 				exVqIndex[j][0] = decVal;
 			}
 
-			int x, u, l, t, g, d;
+			int x, u, l, t, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, d;
 
 			for (int i = 1; i < MAX; i++)
 			{
@@ -707,36 +814,193 @@ namespace ConsoleApplication1 {
 					u = exVqIndex[i - 1][j];
 					l = exVqIndex[i][j - 1];
 					t = exVqIndex[i - 1][j - 1];
-					g = (u + l + t) / 3;
+					g1 = (u + l + t) / 3;
+					g2 = (u + t) / 2;
+					g3 = (l + t) / 2;
+					g4 = (u + l) / 2;
+					g5 = (g2 + g3 + g4) / 3;
+					g6 = (u + g2) / 2;
+					g7 = (g2 + g4) / 2;
+					g8 = (u + g4) / 2;
+					g9 = (g6 + g7 + g8) / 3;
+					g10 = (l + g3) / 2;
+					g11 = (g3 + g4) / 2;
+					g12 = (l + g4) / 2;
+					g13 = (g10 + g11 + g12) / 3;
 
 					//Extract encoded message  
-					
-					b1 = encodedBinStream.at(k++);
-					b2 = encodedBinStream.at(k++);
+					if (N == 1)
+					{
+						b1 = encodedBinStream.at(k++);
+						exSecretMsg += b1;
+					}
+					else if (N == 2)
+					{
+						b1 = encodedBinStream.at(k++);
+						b2 = encodedBinStream.at(k++);
+						exSecretMsg += b1;
+						exSecretMsg += b2;
+					}
+					else if (N == 3)
+					{
+						b1 = encodedBinStream.at(k++);
+						b2 = encodedBinStream.at(k++);
+						b3 = encodedBinStream.at(k++);
+						exSecretMsg += b1;
+						exSecretMsg += b2;
+						exSecretMsg += b3;
+					}
+					else if (N == 4)
+					{
+						b1 = encodedBinStream.at(k++);
+						b2 = encodedBinStream.at(k++);
+						b3 = encodedBinStream.at(k++);
+						b4 = encodedBinStream.at(k++);
+						exSecretMsg += b1;
+						exSecretMsg += b2;
+						exSecretMsg += b3;
+						exSecretMsg += b4;
+					}
+
 					c1 = encodedBinStream.at(k++);
 					c2 = encodedBinStream.at(k++);
-					exSecretMsg += b1;
-					exSecretMsg += b2;
+						
 
 					if (c1 == '0' && c2 == '0')
 					{
 						d = 0;
 
-						if (b1 == '0' &&b2 == '0')
+						if (N == 1)
 						{
-							x = u - d;
+							if (b1 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '1')
+							{
+								x = l - d;
+							}
 						}
-						else if (b1 == '0'&& b2 == '1')
+						else if (N == 2)
 						{
-							x = l - d;
+							if (b1 == '0' &&b2 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0'&& b2 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '1'&& b2 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '1'&& b2 == '1')
+							{
+								x = g1 - d;
+							}
 						}
-						else if (b1 == '1'&& b2 == '0')
+						else if (N == 3)
 						{
-							x = t - d;
+							if (b1 == '0' && b2 == '0' && b3 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1')
+							{
+								x = g1 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0')
+							{
+								x = g2 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1')
+							{
+								x = g3 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0')
+							{
+								x = g4 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1')
+							{
+								x = g5 - d;
+							}
 						}
-						else if (b1 == '1'&& b2 == '1')
+						else if (N == 4)
 						{
-							x = g - d;
+							if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '1')
+							{
+								x = g1 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '0')
+							{
+								x = g2 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '1')
+							{
+								x = g3 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '0')
+							{
+								x = g4 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '1')
+							{
+								x = g5 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '0')
+							{
+								x = g6 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '1')
+							{
+								x = g7 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '0')
+							{
+								x = g8 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '1')
+							{
+								x = g9 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '0')
+							{
+								x = g10 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '1')
+							{
+								x = g11 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '0')
+							{
+								x = g12 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '1')
+							{
+								x = g13 - d;
+							}
 						}
 						exVqIndex[i][j] = x;
 					}
@@ -752,7 +1016,7 @@ namespace ConsoleApplication1 {
 							{
 								binval[indx] = 1;
 							}
-							else if (encodedBit== '0')
+							else if (encodedBit == '0')
 							{
 								binval[indx] = 0;
 							}
@@ -764,7 +1028,7 @@ namespace ConsoleApplication1 {
 					}
 					else if (c1 == '1' && c2 == '0')
 					{
-						binSz = 4;
+						binSz = M;
 						for (int indx = binSz - 1; indx >= 0; indx--)
 						{
 							if (encodedBinStream.at(k) == '1')
@@ -780,28 +1044,144 @@ namespace ConsoleApplication1 {
 						d = getDec(binval, binSz);
 						d = -d;
 
-						if (b1 == '0' && b2 == '0')
+						if (N == 1)
 						{
-							x = u - d;
+							if (b1 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '1')
+							{
+								x = l - d;
+							}
 						}
-						else if (b1 == '0'&& b2 == '1')
+						else if (N == 2)
 						{
-							x = l - d;
+							if (b1 == '0' && b2 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0'&& b2 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '1'&& b2 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '1'&& b2 == '1')
+							{
+								x = g1 - d;
+							}
 						}
-						else if (b1 == '1'&& b2 == '0')
+						else if (N == 3)
 						{
-							x = t - d;
+							if (b1 == '0' && b2 == '0' && b3 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0'&& b2 == '0' && b3 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '0'&& b2 == '1' && b3 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '0'&& b2 == '1' && b3 == '1')
+							{
+								x = g1 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0')
+							{
+								x = g2 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1')
+							{
+								x = g3 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0')
+							{
+								x = g4 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1')
+							{
+								x = g5 - d;
+							}
 						}
-						else if (b1 == '1'&& b2 == '1')
+						else if (N == 4)
 						{
-							x = g - d;
+							if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '1')
+							{
+								x = g1 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '0')
+							{
+								x = g2 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '1')
+							{
+								x = g3 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '0')
+							{
+								x = g4 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '1')
+							{
+								x = g5 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '0')
+							{
+								x = g6 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '1')
+							{
+								x = g7 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '0')
+							{
+								x = g8 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '1')
+							{
+								x = g9 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '0')
+							{
+								x = g10 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '1')
+							{
+								x = g11 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '0')
+							{
+								x = g12 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '1')
+							{
+								x = g13 - d;
+							}
 						}
 
 						exVqIndex[i][j] = x;
 					}
 					else if (c1 == '1' && c2 == '1')
 					{
-						binSz = 4;
+						binSz = M;
 						for (int indx = binSz - 1; indx >= 0; indx--)
 						{
 							if (encodedBinStream.at(k) == '1')
@@ -815,21 +1195,138 @@ namespace ConsoleApplication1 {
 							k++;
 						}
 						d = getDec(binval, binSz);
-						if (b1 == '0' && b2 == '0')
+
+						if (N == 1)
 						{
-							x = u - d;
+							if (b1 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '1')
+							{
+								x = l - d;
+							}
 						}
-						else if (b1 == '0'&& b2 == '1')
+						else if (N == 2)
 						{
-							x = l - d;
+							if (b1 == '0' && b2 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0'&& b2 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '1'&& b2 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '1'&& b2 == '1')
+							{
+								x = g1 - d;
+							}
 						}
-						else if (b1 == '1'&& b2 == '0')
+						else if (N == 3)
 						{
-							x = t - d;
+							if (b1 == '0' && b2 == '0' && b3 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0'&& b2 == '0' && b3 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '0'&& b2 == '1' && b3 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '0'&& b2 == '1' && b3 == '1')
+							{
+								x = g1 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0')
+							{
+								x = g2 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1')
+							{
+								x = g3 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0')
+							{
+								x = g4 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1')
+							{
+								x = g5 - d;
+							}
 						}
-						else if (b1 == '1'&& b2 == '1')
+						else if (N == 4)
 						{
-							x = g - d;
+							if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '0')
+							{
+								x = u - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '0' && b4 == '1')
+							{
+								x = l - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '0')
+							{
+								x = t - d;
+							}
+							else if (b1 == '0' && b2 == '0' && b3 == '1' && b4 == '1')
+							{
+								x = g1 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '0')
+							{
+								x = g2 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '0' && b4 == '1')
+							{
+								x = g3 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '0')
+							{
+								x = g4 - d;
+							}
+							else if (b1 == '0' && b2 == '1' && b3 == '1' && b4 == '1')
+							{
+								x = g5 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '0')
+							{
+								x = g6 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '0' && b4 == '1')
+							{
+								x = g7 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '0')
+							{
+								x = g8 - d;
+							}
+							else if (b1 == '1' && b2 == '0' && b3 == '1' && b4 == '1')
+							{
+								x = g9 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '0')
+							{
+								x = g10 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '0' && b4 == '1')
+							{
+								x = g11 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '0')
+							{
+								x = g12 - d;
+							}
+							else if (b1 == '1' && b2 == '1' && b3 == '1' && b4 == '1')
+							{
+								x = g13 - d;
+							}
 						}
 
 						exVqIndex[i][j] = x;
@@ -839,41 +1336,6 @@ namespace ConsoleApplication1 {
 
 			String^ exSecretMsgOut = gcnew String(exSecretMsg.c_str());
 			exSecretStream = exSecretMsgOut;
-			int r = exSecretStream->Length;
-			int o = exSecretMsg.size();
-		}
-
-		String ^ redFromFile()
-		{
-			String^ line;
-			
-			int arr[MAX][MAX],i=0,j=0;
-
-			arr[0][1] = 1;
-
-			try
-			{
-				StreamReader^ indexFile = File::OpenText(vq);
-				
-				while ((line = indexFile->ReadLine()) != nullptr)
-				{
-					array<String^>^num = line->Split(' ','\n');
-					for (j = 0; j < MAX; j++)
-					{
-						arr[i][j] = int::Parse(num[j]);
-
-					}
-					i++;
-				}
-				
-				indexFile->Close();
-			}
-			catch (Exception^ e)
-			{
-
-			}
-
-			return line;
 		}
 
 private: System::Void convertMsg2Bin_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -951,6 +1413,15 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	encodingSuccess->Visible = false;
 	exBinMsg->Text = " ";
 	exMsg->Text = " ";
+	//std::string vqs[] = {
+	//	"256\\ITtxt\\LenaIT.txt",
+	//	"256\\ITtxt\\PeppersIT.txt",
+	//	"256\\ITtxt\\BaboonIT.txt",
+	//	"256\\ITtxt\\BoatsIT.txt",
+	//	"256\\ITtxt\\JetF16IT.txt",
+	//	"256\\ITtxt\\TiffanyIT.txt",
+	//	"256\\ITtxt\\GoldHillIT.txt"
+	//};
 
 	if (comboBox1->SelectedItem == "Boats")
 	{
@@ -1040,5 +1511,6 @@ private: System::Void nVal_ValueChanged(System::Object^  sender, System::EventAr
 	exBinMsg->Text = " ";
 	exMsg->Text = " ";
 }
+
 };
 }

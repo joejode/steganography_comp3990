@@ -14,7 +14,9 @@ int getDec(int *binVal, int binSz)
 			decVal += pow(2.0, i);
 		}
 	}
-	return decVal;
+
+	int num = (int)decVal;
+	return num;
 }
 
 void getBin(int num, int bits, char * bVal)
