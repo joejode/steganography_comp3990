@@ -81,7 +81,7 @@ namespace ConsoleApplication1 {
 
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::NumericUpDown^  nVal;
-	private: System::Windows::Forms::ImageList^  imageList1;
+
 	private: System::Windows::Forms::ComboBox^  comboBox1;
 	private: System::Windows::Forms::PictureBox^  boats;
 	private: System::Windows::Forms::PictureBox^  baboon;
@@ -93,7 +93,7 @@ namespace ConsoleApplication1 {
 
 
 
-	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
+
 	private: System::Windows::Forms::TextBox^  encodingSuccess;
 	private: System::Windows::Forms::TextBox^  encodedNS;
 
@@ -113,7 +113,6 @@ namespace ConsoleApplication1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(DotSPeg::typeid));
 			this->lena = (gcnew System::Windows::Forms::PictureBox());
 			this->convertMsg2Bin = (gcnew System::Windows::Forms::Button());
@@ -141,9 +140,7 @@ namespace ConsoleApplication1 {
 			this->exBinMsg = (gcnew System::Windows::Forms::TextBox());
 			this->encodedImg = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->lena))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
@@ -444,23 +441,11 @@ namespace ConsoleApplication1 {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &DotSPeg::button1_Click);
 			// 
-			// imageList1
-			// 
-			this->imageList1->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^>(resources->GetObject(L"imageList1.ImageStream")));
-			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
-			this->imageList1->Images->SetKeyName(0, L"boat.png");
-			this->imageList1->Images->SetKeyName(1, L"couple.png");
-			this->imageList1->Images->SetKeyName(2, L"lena512.bmp");
-			// 
 			// openFileDialog1
 			// 
 			this->openFileDialog1->FileName = L"EncodedImage";
 			this->openFileDialog1->Filter = L" (*.bmp)|*bmp|(*.gif)|*.gif|(*.jpg)|*.jpg|(*tif)|*.tif|(*.png)|*.png";
 			this->openFileDialog1->InitialDirectory = L"S\"C:\\\\\";";
-			// 
-			// saveFileDialog1
-			// 
-			this->saveFileDialog1->Filter = L"(*.bmp;*.gif;*.jpg;*.tif;*.png|*.bmp;*.gif;*.jpg;*.tif;*.png)";
 			// 
 			// DotSPeg
 			// 
