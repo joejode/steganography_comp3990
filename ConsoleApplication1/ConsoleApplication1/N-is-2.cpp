@@ -24,7 +24,7 @@ char codeStream[MAX*MAX*N * 12];
 char s[MAX*MAX*N];
 char exS[MAX*MAX*N];
 int sIndex = 0;
-
+char vqName[100];
 void encodeMessage(int vqVals[MAX][MAX]);
 void decodeMessage();
 void getBin(int num, int bits, char *binVal);
@@ -56,6 +56,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (int k = 0; k < 7; k++)
 	{
 		vq = vqs[k].c_str();
+		
+		strcpy_s(vqName, vq);
 		fopen_s(&vqindex, vq, "r");
 		printf("\n%s\n", vq);
 
@@ -240,14 +242,28 @@ void encodeMessage(int vqVals[MAX][MAX])
 
 void printStats(int sIndex, int bitcount, int c1, int c2, int c3, int c4)
 {
+	FILE *output,*caseComp;
+	fopen_s(&output, "Results.csv", "a");
+	fopen_s(&caseComp, "Case Comparison.csv", "a");
+	fprintf_s(caseComp, "\n%s,Case 1,Case 2,Case 3,Case 4,\n",vqName);
+	fprintf_s(caseComp, " ,%d,%d,%d,%d,\n", c1, c2, c3, c4);
 	double er = 0.0, cr = 0.0;
 	er = sIndex / (128.0*128.0);
 	cr = bitcount / (512.0 * 512.0);
-	printf("\nM=%d\nN=2\nSecret Bits: %d\n", M, sIndex);
+	fprintf_s(output, "\n%s,\n", vqName);
+	fprintf_s(output, "\nm,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,\n");
+	fprintf_s(output, "%d,%d,%d,%d,%f,%f,\n",M,N,sIndex,bitcount,er,cr);
+	fprintf_s(output, "\nCase 1,Case 2,Case 3,Case 4,");
+	fprintf_s(output, "\n%d,%d,%d,%d,\n", c1, c2, c3, c4);
+
+	/*printf("\nM=%d\nN=2\nSecret Bits: %d\n", M, sIndex);
 	printf("Total Bits: %d\n", bitcount);
 	printf("Embedding Rate: %.3f\n", er);
 	printf("Compression Rate: %.3f\n", cr);
 	printf("Case1:%d\nCase2:%d\nCase3:%d\nCase4:%d\n", c1, c2, c3, c4);
+	*/
+	fclose(output); 
+	fclose(caseComp);
 }
 void decodeMessage()
 {

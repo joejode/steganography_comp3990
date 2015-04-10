@@ -1,0 +1,56 @@
+
+256\ITtxt\LenaIT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,137632,1.968872,0.525024,
+
+Case 1,Case 2,Case 3,Case 4,
+3057,4697,4330,4045,
+
+256\ITtxt\PeppersIT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,132820,1.968872,0.506668,
+
+Case 1,Case 2,Case 3,Case 4,
+3757,4194,4441,3737,
+
+256\ITtxt\BaboonIT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,162760,1.968872,0.620880,
+
+Case 1,Case 2,Case 3,Case 4,
+763,8685,3348,3333,
+
+256\ITtxt\BoatsIT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,125976,1.968872,0.480560,
+
+Case 1,Case 2,Case 3,Case 4,
+5431,4157,3409,3132,
+
+256\ITtxt\JetF16IT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,125584,1.968872,0.479065,
+
+Case 1,Case 2,Case 3,Case 4,
+5147,3775,3967,3240,
+
+256\ITtxt\TiffanyIT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,105072,1.968872,0.400818,
+
+Case 1,Case 2,Case 3,Case 4,
+7515,1015,4283,3316,
+
+256\ITtxt\GoldHillIT.txt,
+
+m,n,Secret Bits,Total Bits,Embedding Rate,Compression Rate,
+4,2,32258,145764,1.968872,0.556046,
+
+Case 1,Case 2,Case 3,Case 4,
+2510,6183,3359,4077,
